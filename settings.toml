@@ -1,9 +1,15 @@
 [default]
+JOB_EXECUTORS = 20
+JOB_PROCESS_POOL = 5
+JOB_COALESCE = false
+JOB_MAX_INSTANCES = 3
+TIMEZONE = 'America/Sao_Paulo'
 EXTENSIONS = [
     "main.ext.db:init_app",
     "main.ext.cli:init_app",
     "main.ext.bcrypt:init_app",
     "main.ext.serializer:init_app",
+    "main.ext.scheduler:init_app",
     "main.blueprint.api:init_app",
 ]
 
