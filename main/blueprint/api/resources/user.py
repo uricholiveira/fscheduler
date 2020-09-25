@@ -1,10 +1,8 @@
-from flask import request
 from flask_restx import Resource
 
 from ..services.user import get_all_users
-
-from ..utils.schema import UserSerializer
 from ..utils.dto import User
+from ..utils.schema import UserSerializer
 
 api = User.api
 user = User.model

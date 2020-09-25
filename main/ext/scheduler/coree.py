@@ -7,9 +7,27 @@ from dynaconf import settings
 
 
 class FlaskScheduler(BackgroundScheduler):
-	def __init__(self, app=None, **options):
+	def __init__(self, app=None, db=None, **options):
 		super().__init__(**options)
 		self._hostname = socket.gethostname().lower()
+		self._app = app
+		self._db = db
+
+	@property
+	def app(self):
+		return self._app
+
+	@app.setter
+	def app(self, value):
+		self._app = value
+
+	@property
+	def db(self):
+		return self._db
+
+	@db.setter
+	def db(self, value):
+		self._db = value
 
 	@property
 	def hostname(self):
@@ -19,7 +37,7 @@ class FlaskScheduler(BackgroundScheduler):
 		options = dict()
 
 		jobstores = {
-			'default': SQLAlchemyJobStore(url=settings.SQLALCHEMY_DATABASE_URI)
+			'default': SQLAlchemyJobStore(engine=self.db.get_engine(self.app), tablename='apscheduler_jobs_custom'),
 		}
 		executors = {
 			'default': ThreadPoolExecutor(settings.JOB_EXECUTORS),
@@ -38,5 +56,8 @@ class FlaskScheduler(BackgroundScheduler):
 
 		self.configure(**options)
 
-	def init_app(self, app):
+	def init_app(self, app, db):
+		self.app = app
+		self.db = db
 		self.load_config()
+		self.start()
