@@ -1,0 +1,20 @@
+[default]
+EXTENSIONS = [
+    "main.ext.db:init_app",
+    "main.ext.cli:init_app",
+    "main.ext.bcrypt:init_app",
+    "main.ext.serializer:init_app",
+    "main.blueprint.api:init_app",
+]
+
+[development]
+SECRET_KEY = 'super_secret_key'
+DEBUG = true
+SQLALCHEMY_DATABASE_URI = "sqlite:///development.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+
+
+[production]
+SECRET_KEY = 'ultra_super_secret_key'
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = "sqlite:///production.db"
