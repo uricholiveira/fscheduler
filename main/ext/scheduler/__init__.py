@@ -1,4 +1,4 @@
-from .coree import FlaskScheduler
+from .core import FlaskScheduler
 from ..db import db
 
 sd = FlaskScheduler()

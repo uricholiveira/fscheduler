@@ -41,9 +41,6 @@ class CustomJobStore(db.Model):
 	start_date = db.Column(db.DateTime(True), nullable=True, default=arrow.now(settings.TIMEZONE))
 	end_date = db.Column(db.DateTime(True), nullable=True)
 
-	def __init__(self):
-		self.metadata = MetaData()
-
 	@property
 	def seconds(self):
 		return self.interval.second
